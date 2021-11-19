@@ -8,7 +8,6 @@ use Sensorario\Yaphlo\Message;
 use Sensorario\Yaphlo\Writer;
 use Sensorario\Yaphlo\WriterAdapter;
 
-// definizione per il container o service locator
 $logger = new Logger(
     new Message,
     new Writer(
@@ -19,5 +18,5 @@ $logger = new Logger(
 );
 
 // logga cose
-$logger->info(['scrivi' => 'questo']);
-$logger->error(['scrivi' => 'questo']);
+$logger->info(['write' => 'this']);
+$logger->error(['write' => 'this']);
