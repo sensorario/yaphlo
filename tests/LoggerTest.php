@@ -40,14 +40,16 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
             ->method('write')
             ->with($this->message);
 
-        $logger->$level($message);
+        $logger->{strtolower($level)}($message);
     }
 
     public function levels()
     {
-        return [
-            [\Sensorario\Yaphlo\Message::LEVEL_INFO],
-            [\Sensorario\Yaphlo\Message::LEVEL_ERROR],
-        ];
+        $levels = [];
+        foreach(Message::levelMap() as $level) {
+            $levels[] = [$level];
+        }
+
+        return $levels;
     }
 }

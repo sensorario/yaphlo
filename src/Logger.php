@@ -25,4 +25,14 @@ class Logger
     {
         $this->write($message, Message::LEVEL_ERROR);
     }
+
+    public function fatal(array $message): void
+    {
+        $this->write($message, Message::LEVEL_FATAL);
+    }
+
+    public function warning(array $message): void
+    {
+        $this->write($message, Message::LEVEL_WARNING);
+    }
 }
