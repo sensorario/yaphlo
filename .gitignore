@@ -2,3 +2,4 @@
 /bin/
 /.phpunit.cache/
 /scripts/logger.log
+/coverage/

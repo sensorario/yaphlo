@@ -16,8 +16,11 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
             ->getMock();
     }
 
-    /** @test */
-    public function istantiate()
+    /**
+     * @test
+     * @dataProvider levels
+     */
+    public function istantiate($level)
     {
         $logger = new Logger(
             $this->message,
@@ -31,36 +34,20 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
             ->with($message);
         $this->message->expects($this->once())
             ->method('setLevel')
-            ->with(\Sensorario\Yaphlo\Message::LEVEL_INFO);
+            ->with($level);
 
         $this->writer->expects($this->once())
             ->method('write')
             ->with($this->message);
 
-        $logger->info($message);
+        $logger->$level($message);
     }
 
-    /** @test */
-    public function logErrorMessages()
+    public function levels()
     {
-        $logger = new Logger(
-            $this->message,
-            $this->writer
-        );
-
-        $message = ['answer' => 42];
-
-        $this->message->expects($this->once())
-            ->method('setContent')
-            ->with($message);
-        $this->message->expects($this->once())
-            ->method('setLevel')
-            ->with(\Sensorario\Yaphlo\Message::LEVEL_ERROR);
-
-        $this->writer->expects($this->once())
-            ->method('write')
-            ->with($this->message);
-
-        $logger->error($message);
+        return [
+            [\Sensorario\Yaphlo\Message::LEVEL_INFO],
+            [\Sensorario\Yaphlo\Message::LEVEL_ERROR],
+        ];
     }
 }
