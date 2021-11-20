@@ -19,5 +19,10 @@
             "name": "Simone Gentili",
             "email": "sensorario@gmail.com"
         }
-    ]
+    ],
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "v1.0-dev"
+        }
+    }
 }
