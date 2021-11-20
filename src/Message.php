@@ -14,6 +14,11 @@ class Message
 
     private ?\DateTime $datetime;
 
+    private $levelMap = [
+        self::LEVEL_INFO,
+        self::LEVEL_ERROR,
+    ];
+
     public function __construct()
     {
         $this->datetime = new \DateTime();
@@ -31,12 +36,7 @@ class Message
 
     public function setLevel(string $level): void
     {
-        $levelMap = [
-            self::LEVEL_INFO,
-            self::LEVEL_ERROR,
-        ];
-
-        if (!in_array($level, $levelMap)) {
+        if (!in_array($level, $this->levelMap)) {
             throw new WrongLevelException();
         }
 
