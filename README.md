@@ -9,7 +9,6 @@ Yet another php logger
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use Sensorario\Yaphlo\FilePutContentWrapper;
 use Sensorario\Yaphlo\Logger;
 use Sensorario\Yaphlo\Message;
 use Sensorario\Yaphlo\Writer;
