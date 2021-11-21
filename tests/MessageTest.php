@@ -108,4 +108,16 @@ class MessageTest extends \PHPUnit\Framework\TestCase
 
         $this->assertEquals($renderedContent, $message->render());
     }
+
+    /** @test */
+    public function hasFourLevelsOfLogging()
+    {
+        $message = new Message(new \DateTime);
+        $this->assertEquals([
+            'INFO',
+            'WARNING',
+            'ERROR',
+            'FATAL',
+        ], $message->levelMap());
+    }
 }

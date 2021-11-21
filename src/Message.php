@@ -8,20 +8,31 @@ class Message
 
     const LEVEL_ERROR = 'ERROR';
 
+    const LEVEL_WARNING = 'WARNING';
+
+    const LEVEL_FATAL = 'FATAL';
+
     private ?string $level = null;
 
     private array $content = [];
 
     private ?\DateTime $datetime;
 
-    private $levelMap = [
+    private static $levelMap = [
         self::LEVEL_INFO,
+        self::LEVEL_WARNING,
         self::LEVEL_ERROR,
+        self::LEVEL_FATAL,
     ];
 
     public function __construct()
     {
         $this->datetime = new \DateTime();
+    }
+
+    public static function levelMap()
+    {
+        return self::$levelMap;
     }
 
     public function setContent(array $content): void
@@ -36,7 +47,7 @@ class Message
 
     public function setLevel(string $level): void
     {
-        if (!in_array($level, $this->levelMap)) {
+        if (!in_array($level, self::$levelMap)) {
             throw new WrongLevelException();
         }
 
