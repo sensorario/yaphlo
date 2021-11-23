@@ -8,7 +8,7 @@ class Writer
         private FilePutContentWrapper $filePutContent,
     ) {}
 
-    public function write(Message $message)
+    public function write(Message $message): void
     {
         $this->filePutContent->append($message->render());
     }

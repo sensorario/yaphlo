@@ -18,7 +18,7 @@ class Message
 
     private ?\DateTime $datetime;
 
-    private static $levelMap = [
+    private static array $levelMap = [
         self::LEVEL_INFO,
         self::LEVEL_WARNING,
         self::LEVEL_ERROR,
@@ -30,7 +30,7 @@ class Message
         $this->datetime = new \DateTime();
     }
 
-    public static function levelMap()
+    public static function levelMap(): array
     {
         return self::$levelMap;
     }
