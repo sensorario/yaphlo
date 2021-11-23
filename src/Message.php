@@ -86,4 +86,13 @@ class Message
             $this->levelMap()
         );
     }
+
+    public function doesLevelPrints(string $level): bool
+    {
+        $map = $this->inverseMap();
+        $levelNumber = $map[$level];
+        $levelMe = $map[$this->level] ?? 0;
+
+        return $levelNumber >= $levelMe;
+    }
 }

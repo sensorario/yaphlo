@@ -132,4 +132,17 @@ class MessageTest extends \PHPUnit\Framework\TestCase
             'FATAL' => 3,
         ], $message->inverseMap());
     }
+
+    /** @test */
+    public function doesLevelPrints()
+    {
+        $message = new Message(new \DateTime);
+        $this->assertTrue($message->doesLevelPrints(Message::LEVEL_ERROR));
+
+        $message->setLevel(Message::LEVEL_FATAL);
+        $this->assertFalse($message->doesLevelPrints(Message::LEVEL_ERROR));
+
+        $message->setLevel(Message::LEVEL_INFO);
+        $this->assertTrue($message->doesLevelPrints(Message::LEVEL_ERROR));
+    }
 }
