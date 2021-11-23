@@ -79,4 +79,11 @@ class Message
     {
         $this->datetime = $datetime;
     }
+
+    public function inverseMap(): array
+    {
+        return array_flip(
+            $this->levelMap()
+        );
+    }
 }

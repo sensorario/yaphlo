@@ -120,4 +120,16 @@ class MessageTest extends \PHPUnit\Framework\TestCase
             'FATAL',
         ], $message->levelMap());
     }
+
+    /** @test */
+    public function inverseLevelArray()
+    {
+        $message = new Message(new \DateTime);
+        $this->assertEquals([
+            'INFO' => 0,
+            'WARNING' => 1,
+            'ERROR' => 2,
+            'FATAL' => 3,
+        ], $message->inverseMap());
+    }
 }
