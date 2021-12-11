@@ -71,8 +71,16 @@ class Message
 
             $items[] = $datetime;
 
-            if ($this->level !== null) { $items[] = '[' . $this->level . ']'; }
-            if ($this->channel !== null) { $items[] = '[' . $this->channel . ']'; }
+            if ($this->level !== null) {
+                $items[] = '[' . $this->level . ']';
+            }
+
+            if (
+                $this->channel !== null
+                && $this->channel !== ''
+            ) {
+                $items[] = '[' . $this->channel . ']';
+            }
 
             $items[] = $line;
 

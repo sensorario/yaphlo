@@ -34,3 +34,5 @@ $logger->info(['write' => 'this']);
 $logger->error(['write' => 'this']);
 $logger->fatal(['write' => 'this']);
 $logger->warning(['write' => 'this']);
+
+$logger->info(['write' => 'this'], 'channel');
