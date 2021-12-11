@@ -9,8 +9,10 @@ class Logger
         private Writer $writer,
     ) {}
 
-    private function write(array $message, string $level): void
-    {
+    private function write(
+        array $message,
+        string $level
+    ): void {
         $this->msg->setContent($message);
         $this->msg->setLevel($level);
         $this->writer->write($this->msg);

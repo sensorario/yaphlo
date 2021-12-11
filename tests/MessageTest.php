@@ -137,12 +137,37 @@ class MessageTest extends \PHPUnit\Framework\TestCase
     public function doesLevelPrints()
     {
         $message = new Message(new \DateTime);
-        $this->assertTrue($message->doesLevelPrints(Message::LEVEL_ERROR));
+        $this->assertTrue($message->isPrintableWithLevel(Message::LEVEL_ERROR));
 
         $message->setLevel(Message::LEVEL_FATAL);
-        $this->assertFalse($message->doesLevelPrints(Message::LEVEL_ERROR));
+        $this->assertFalse($message->isPrintableWithLevel(Message::LEVEL_ERROR));
 
         $message->setLevel(Message::LEVEL_INFO);
-        $this->assertTrue($message->doesLevelPrints(Message::LEVEL_ERROR));
+        $this->assertTrue($message->isPrintableWithLevel(Message::LEVEL_ERROR));
+    }
+
+    /** @test */
+    public function cathegorizeMessageWithChannels()
+    {
+        $content = [
+            'foo' => 'bar'
+        ];
+
+        $currentDateTime = new \DateTime();
+
+        $datetime = $currentDateTime->format('[Y-m-d H:i:s]');
+
+        $renderedContent = <<<JSON
+        $datetime [INFO] [something] {
+        $datetime [INFO] [something]     "foo": "bar"
+        $datetime [INFO] [something] }
+        JSON;
+
+        $message = new Message($currentDateTime);
+        $message->setContent($content);
+        $message->setLevel(Message::LEVEL_INFO);
+        $message->setChannel('something');
+
+        $this->assertEquals($renderedContent, $message->render());
     }
 }
