@@ -115,4 +115,9 @@ class Message
     {
         $this->channel = $channel;
     }
+
+    public function getChannel(): string
+    {
+        return $this->channel;
+    }
 }

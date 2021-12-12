@@ -45,6 +45,11 @@ class WriterTest extends \PHPUnit\Framework\TestCase
             ->method('level')
             ->willReturn(Message::LEVEL_INFO);
 
+        $this->conf
+            ->expects($this->once())
+            ->method('enabledChannels')
+            ->willReturn(['all']);
+
         $this->message
             ->expects($this->once())
             ->method('isPrintableWithLevel')
@@ -74,6 +79,10 @@ class WriterTest extends \PHPUnit\Framework\TestCase
             ->expects($this->never())
             ->method('render');
 
+        $this->conf
+            ->expects($this->never())
+            ->method('enabledChannels');
+
         $this->message
             ->expects($this->once())
             ->method('isPrintableWithLevel')
@@ -85,5 +94,112 @@ class WriterTest extends \PHPUnit\Framework\TestCase
         );
 
         $writer->write($this->message);
+    }
+
+    /** @test */
+    public function writerNeverAppendWheneverEnabledChannelsIsEmpty()
+    {
+        $this->filePutContent
+            ->expects($this->never())
+            ->method('append');
+
+        $this->message
+            ->expects($this->never())
+            ->method('render');
+
+        $this->conf
+            ->expects($this->once())
+            ->method('level')
+            ->willReturn(Message::LEVEL_INFO);
+
+        $this->conf
+            ->expects($this->once())
+            ->method('enabledChannels')
+            ->willReturn([]);
+
+        $this->message
+            ->expects($this->once())
+            ->method('isPrintableWithLevel')
+            ->willReturn(true);
+
+        $writer = new Writer(
+            $this->conf,
+            $this->filePutContent,
+        );
+
+        $writer->write($this->message);
+    }
+
+    /** @test */
+    public function neverAppendIfChannelEnabledIsNotOfMessage()
+    {
+        $this->filePutContent
+            ->expects($this->never())
+            ->method('append');
+
+        $this->message
+            ->expects($this->never())
+            ->method('render');
+
+        $this->conf
+            ->expects($this->once())
+            ->method('level')
+            ->willReturn(Message::LEVEL_INFO);
+
+        $this->conf
+            ->expects($this->once())
+            ->method('enabledChannels')
+            ->willReturn(['foo']);
+
+        $this->message
+            ->expects($this->once())
+            ->method('isPrintableWithLevel')
+            ->willReturn(true);
+
+        $writer = new Writer(
+            $this->conf,
+            $this->filePutContent,
+        );
+
+        $writer->write($this->message, 'bar');
+    }
+
+    /** @test */
+    public function appendIfChannelEnabledIsSmaeOfMessage()
+    {
+        $this->filePutContent
+            ->expects($this->once())
+            ->method('append');
+
+        $this->message
+            ->expects($this->once())
+            ->method('render');
+
+        $this->message
+            ->expects($this->once())
+            ->method('getChannel')
+            ->willReturn('foo');
+
+        $this->conf
+            ->expects($this->once())
+            ->method('level')
+            ->willReturn(Message::LEVEL_INFO);
+
+        $this->conf
+            ->expects($this->once())
+            ->method('enabledChannels')
+            ->willReturn(['foo']);
+
+        $this->message
+            ->expects($this->once())
+            ->method('isPrintableWithLevel')
+            ->willReturn(true);
+
+        $writer = new Writer(
+            $this->conf,
+            $this->filePutContent,
+        );
+
+        $writer->write($this->message, 'foo');
     }
 }

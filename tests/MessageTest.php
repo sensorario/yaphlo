@@ -170,4 +170,23 @@ class MessageTest extends \PHPUnit\Framework\TestCase
 
         $this->assertEquals($renderedContent, $message->render());
     }
+
+    /** @test */
+    public function provideChannelWithGetter()
+    {
+        $content = [
+            'foo' => 'bar'
+        ];
+
+        $currentDateTime = new \DateTime();
+
+        $datetime = $currentDateTime->format('[Y-m-d H:i:s]');
+
+        $message = new Message($currentDateTime);
+        $message->setContent($content);
+        $message->setLevel(Message::LEVEL_INFO);
+        $message->setChannel('something');
+
+        $this->assertEquals('something', $message->getChannel());
+    }
 }

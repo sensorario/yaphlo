@@ -13,7 +13,13 @@ class Writer
     {
         $confLevel = $this->conf->level();
         if ($message->isPrintableWithLevel($confLevel)) {
-            $this->filePutContent->append($message->render());
+            $channels = $this->conf->enabledChannels();
+            if (
+                $channels === ['all']
+                || ($channels !== [] && in_array($message->getChannel(), $channels))
+            ) {
+                $this->filePutContent->append($message->render());
+            }
         }
     }
 }
