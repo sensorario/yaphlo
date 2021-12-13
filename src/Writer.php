@@ -12,13 +12,17 @@ class Writer
     public function write(Message $message): void
     {
         $confLevel = $this->conf->level();
+
         if ($message->isPrintableWithLevel($confLevel)) {
             $channels = $this->conf->enabledChannels();
-            if (
-                $channels === ['all']
-                || ($channels !== [] && in_array($message->getChannel(), $channels))
-            ) {
-                $this->filePutContent->append($message->render());
+            $shows = [];
+            $shows[] = $channels !== [] && in_array($message->getChannel(), $channels);
+            $shows[] = $channels === ['all'];
+
+            foreach ($shows as $show) {
+                if ($show === true) {
+                    $this->filePutContent->append($message->render());
+                }
             }
         }
     }
