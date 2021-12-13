@@ -67,8 +67,8 @@ $logger = new Logger(
 
 $logger->info(['write' => 'this']);
 $logger->error(['write' => 'this']);
-$logger->fatal(['write' => 'this']);
-$logger->warning(['write' => 'this']);
+// $logger->fatal(['write' => 'this']);
+// $logger->warning(['write' => 'this']);
 
 $logger->info(['write' => 'this'], 'channel A');
 $logger->info(['write' => 'this'], 'channel B');
