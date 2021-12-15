@@ -4,6 +4,10 @@ namespace Sensorario\Yaphlo;
 
 class LoggerTest extends \PHPUnit\Framework\TestCase
 {
+    private $message;
+
+    private $writer;
+    
     public function setUp(): void
     {
         $this->message = $this

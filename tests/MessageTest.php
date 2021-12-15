@@ -7,7 +7,7 @@ class MessageTest extends \PHPUnit\Framework\TestCase
     /** @test */
     public function isAnEmptyArrayIfNoItemWerePassedToConstructor()
     {
-        $message = new Message(new \DateTime);
+        $message = new Message();
         $this->assertEquals([], $message->content());
     }
 
@@ -17,7 +17,7 @@ class MessageTest extends \PHPUnit\Framework\TestCase
         $content = [
             'foo' => 'bar'
         ];
-        $message = new Message(new \DateTime());
+        $message = new Message();
         $message->setContent($content);
         $this->assertEquals($content, $message->content());
     }
@@ -39,7 +39,7 @@ class MessageTest extends \PHPUnit\Framework\TestCase
         $datetime }
         JSON;
 
-        $message = new Message($currentDateTime);
+        $message = new Message();
         $message->setContent($content);
         $this->assertEquals($renderedContent, $message->render());
     }
@@ -61,7 +61,7 @@ class MessageTest extends \PHPUnit\Framework\TestCase
         $datetime [INFO] }
         JSON;
 
-        $message = new Message($currentDateTime);
+        $message = new Message();
         $message->setContent($content);
         $message->setLevel(Message::LEVEL_INFO);
 
@@ -78,8 +78,7 @@ class MessageTest extends \PHPUnit\Framework\TestCase
             'foo' => 'bar'
         ];
 
-        $currentDateTime = new \DateTime();
-        $message = new Message($currentDateTime);
+        $message = new Message();
         $message->setContent($content);
         $message->setLevel('wrong');
     }
@@ -112,7 +111,7 @@ class MessageTest extends \PHPUnit\Framework\TestCase
     /** @test */
     public function hasFourLevelsOfLogging()
     {
-        $message = new Message(new \DateTime);
+        $message = new Message();
         $this->assertEquals([
             'INFO',
             'WARNING',
@@ -124,7 +123,7 @@ class MessageTest extends \PHPUnit\Framework\TestCase
     /** @test */
     public function inverseLevelArray()
     {
-        $message = new Message(new \DateTime);
+        $message = new Message();
         $this->assertEquals([
             'INFO' => 0,
             'WARNING' => 1,
@@ -136,7 +135,7 @@ class MessageTest extends \PHPUnit\Framework\TestCase
     /** @test */
     public function doesLevelPrints()
     {
-        $message = new Message(new \DateTime);
+        $message = new Message();
         $this->assertTrue($message->isPrintableWithLevel(Message::LEVEL_ERROR));
 
         $message->setLevel(Message::LEVEL_FATAL);
@@ -163,7 +162,7 @@ class MessageTest extends \PHPUnit\Framework\TestCase
         $datetime [INFO] [something] }
         JSON;
 
-        $message = new Message($currentDateTime);
+        $message = new Message();
         $message->setContent($content);
         $message->setLevel(Message::LEVEL_INFO);
         $message->setChannel('something');
@@ -178,11 +177,7 @@ class MessageTest extends \PHPUnit\Framework\TestCase
             'foo' => 'bar'
         ];
 
-        $currentDateTime = new \DateTime();
-
-        $datetime = $currentDateTime->format('[Y-m-d H:i:s]');
-
-        $message = new Message($currentDateTime);
+        $message = new Message();
         $message->setContent($content);
         $message->setLevel(Message::LEVEL_INFO);
         $message->setChannel('something');
