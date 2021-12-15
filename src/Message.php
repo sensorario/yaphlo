@@ -12,13 +12,15 @@ class Message
 
     const LEVEL_FATAL = 'FATAL';
 
+    private ?string $channel = null;
+
     private ?string $level = null;
 
     private array $content = [];
 
     private ?\DateTime $datetime;
 
-    private static $levelMap = [
+    private static array $levelMap = [
         self::LEVEL_INFO,
         self::LEVEL_WARNING,
         self::LEVEL_ERROR,
@@ -30,7 +32,7 @@ class Message
         $this->datetime = new \DateTime();
     }
 
-    public static function levelMap()
+    public static function levelMap(): array
     {
         return self::$levelMap;
     }
@@ -65,11 +67,24 @@ class Message
 
         $datetime = $this->datetime->format('[Y-m-d H:i:s]');
         foreach (explode("\n", $encoded) as $line) {
-            if ($this->level === null) {
-                $rendered[] = $datetime . ' ' . $line;
-            } else {
-                $rendered[] = $datetime . ' ' . '[' . $this->level . ']' . ' ' . $line;
+            $items = [];
+
+            $items[] = $datetime;
+
+            if ($this->level !== null) {
+                $items[] = '[' . $this->level . ']';
             }
+
+            if (
+                $this->channel !== null
+                && $this->channel !== ''
+            ) {
+                $items[] = '[' . $this->channel . ']';
+            }
+
+            $items[] = $line;
+
+            $rendered[] = join(' ', $items);
         }
 
         return implode("\n", $rendered);
@@ -78,5 +93,31 @@ class Message
     public function forceDateTime(\DateTime $datetime): void
     {
         $this->datetime = $datetime;
+    }
+
+    public function inverseMap(): array
+    {
+        return array_flip(
+            $this->levelMap()
+        );
+    }
+
+    public function isPrintableWithLevel(string $level): bool
+    {
+        $map = $this->inverseMap();
+        $levelNumber = $map[$level];
+        $levelMe = $map[$this->level] ?? 0;
+
+        return $levelNumber >= $levelMe;
+    }
+
+    public function setChannel(string $channel): void
+    {
+        $this->channel = $channel;
+    }
+
+    public function getChannel(): string
+    {
+        return $this->channel;
     }
 }

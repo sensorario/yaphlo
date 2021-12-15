@@ -120,4 +120,73 @@ class MessageTest extends \PHPUnit\Framework\TestCase
             'FATAL',
         ], $message->levelMap());
     }
+
+    /** @test */
+    public function inverseLevelArray()
+    {
+        $message = new Message(new \DateTime);
+        $this->assertEquals([
+            'INFO' => 0,
+            'WARNING' => 1,
+            'ERROR' => 2,
+            'FATAL' => 3,
+        ], $message->inverseMap());
+    }
+
+    /** @test */
+    public function doesLevelPrints()
+    {
+        $message = new Message(new \DateTime);
+        $this->assertTrue($message->isPrintableWithLevel(Message::LEVEL_ERROR));
+
+        $message->setLevel(Message::LEVEL_FATAL);
+        $this->assertFalse($message->isPrintableWithLevel(Message::LEVEL_ERROR));
+
+        $message->setLevel(Message::LEVEL_INFO);
+        $this->assertTrue($message->isPrintableWithLevel(Message::LEVEL_ERROR));
+    }
+
+    /** @test */
+    public function cathegorizeMessageWithChannels()
+    {
+        $content = [
+            'foo' => 'bar'
+        ];
+
+        $currentDateTime = new \DateTime();
+
+        $datetime = $currentDateTime->format('[Y-m-d H:i:s]');
+
+        $renderedContent = <<<JSON
+        $datetime [INFO] [something] {
+        $datetime [INFO] [something]     "foo": "bar"
+        $datetime [INFO] [something] }
+        JSON;
+
+        $message = new Message($currentDateTime);
+        $message->setContent($content);
+        $message->setLevel(Message::LEVEL_INFO);
+        $message->setChannel('something');
+
+        $this->assertEquals($renderedContent, $message->render());
+    }
+
+    /** @test */
+    public function provideChannelWithGetter()
+    {
+        $content = [
+            'foo' => 'bar'
+        ];
+
+        $currentDateTime = new \DateTime();
+
+        $datetime = $currentDateTime->format('[Y-m-d H:i:s]');
+
+        $message = new Message($currentDateTime);
+        $message->setContent($content);
+        $message->setLevel(Message::LEVEL_INFO);
+        $message->setChannel('something');
+
+        $this->assertEquals('something', $message->getChannel());
+    }
 }

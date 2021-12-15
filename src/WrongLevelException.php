@@ -4,5 +4,8 @@ namespace Sensorario\Yaphlo;
 
 class WrongLevelException extends \Exception
 {
-    protected $message = 'Oops! Wrong level Exception!!';
+    public function __construct()
+    {
+        $this->message = 'Oops! Wrong level Exception!!';
+    }
 }

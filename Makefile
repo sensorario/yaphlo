@@ -20,3 +20,6 @@ build:
 
 bash_php:
 	docker-compose exec php bash
+
+stan:
+	./bin/phpstan analyze src --level=5
