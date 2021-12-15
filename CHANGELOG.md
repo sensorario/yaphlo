@@ -5,3 +5,4 @@
  - enable only configured channels
  - add some configuration files
  - add documentation in readme file
+ - use phpstan for static analysis
