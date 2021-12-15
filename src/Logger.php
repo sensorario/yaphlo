@@ -20,6 +20,7 @@ class Logger implements LoggerWriter
         $this->writer->write($this->msg);
     }
 
+    /** @param array<int, string> $message */
     public function info(
         array $message,
         string $channel = '',
@@ -31,6 +32,7 @@ class Logger implements LoggerWriter
         );
     }
 
+    /** @param array<int, string> $message */
     public function error(
         array $message,
         string $channel = '',
@@ -42,6 +44,7 @@ class Logger implements LoggerWriter
         );
     }
 
+    /** @param array<int, string> $message */
     public function fatal(
         array $message,
         string $channel = '',
@@ -53,6 +56,7 @@ class Logger implements LoggerWriter
         );
     }
 
+    /** @param array<int, string> $message */
     public function warning(
         array $message,
         string $channel = '',
