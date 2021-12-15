@@ -4,14 +4,16 @@ namespace Sensorario\Yaphlo\Tests;
 
 use Sensorario\Yaphlo\Writer;
 use Sensorario\Yaphlo\Message;
+use Sensorario\Yaphlo\Config;
+use Sensorario\Yaphlo\FilePutContentWrapper;
 
 class WriterTest extends \PHPUnit\Framework\TestCase
 {
-    private $message;
+    private Message $message;
 
-    private $filePutContent;
+    private FilePutContentWrapper $filePutContent;
 
-    private $conf;
+    private Config $conf;
 
     public function setUp(): void
     {
@@ -32,7 +34,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
     }
 
     /** @test */
-    public function writeIntoFile()
+    public function writeIntoFile(): void
     {
         $this->filePutContent
             ->expects($this->once())
@@ -66,7 +68,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
     }
 
     /** @test */
-    public function doNotWriteIntoFile()
+    public function doNotWriteIntoFile(): void
     {
         $this->conf
             ->expects($this->once())
@@ -99,7 +101,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
     }
 
     /** @test */
-    public function writerNeverAppendWheneverEnabledChannelsIsEmpty()
+    public function writerNeverAppendWheneverEnabledChannelsIsEmpty(): void
     {
         $this->filePutContent
             ->expects($this->never())
@@ -133,7 +135,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
     }
 
     /** @test */
-    public function neverAppendIfChannelEnabledIsNotOfMessage()
+    public function neverAppendIfChannelEnabledIsNotOfMessage(): void
     {
         $this->filePutContent
             ->expects($this->never())
@@ -167,7 +169,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
     }
 
     /** @test */
-    public function appendIfChannelEnabledIsSmaeOfMessage()
+    public function appendIfChannelEnabledIsSmaeOfMessage(): void
     {
         $this->filePutContent
             ->expects($this->once())

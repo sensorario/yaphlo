@@ -16,10 +16,12 @@ class Message
 
     private ?string $level = null;
 
+    /** @var array<int, string> $content */
     private array $content = [];
 
     private ?\DateTime $datetime;
 
+    /** @var array<int, string> $levelMap */
     private static array $levelMap = [
         self::LEVEL_INFO,
         self::LEVEL_WARNING,
@@ -32,16 +34,19 @@ class Message
         $this->datetime = new \DateTime();
     }
 
+    /** @return array<int, string> */
     public static function levelMap(): array
     {
         return self::$levelMap;
     }
 
+    /** @param array<int, string> $content */
     public function setContent(array $content): void
     {
         $this->content = $content;
     }
 
+    /** @return array<int, string> $content */
     public function content(): array
     {
         return $this->content;
@@ -95,6 +100,7 @@ class Message
         $this->datetime = $datetime;
     }
 
+    /** @return array<string, int> $content */
     public function inverseMap(): array
     {
         return array_flip(
