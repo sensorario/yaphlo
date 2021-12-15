@@ -11,6 +11,8 @@ class WriterTest extends \PHPUnit\Framework\TestCase
 
     private $filePutContent;
 
+    private $conf;
+
     public function setUp(): void
     {
         $this->conf = $this
@@ -161,7 +163,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
             $this->filePutContent,
         );
 
-        $writer->write($this->message, 'bar');
+        $writer->write($this->message);
     }
 
     /** @test */
@@ -200,6 +202,6 @@ class WriterTest extends \PHPUnit\Framework\TestCase
             $this->filePutContent,
         );
 
-        $writer->write($this->message, 'foo');
+        $writer->write($this->message);
     }
 }
