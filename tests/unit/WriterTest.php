@@ -5,13 +5,13 @@ namespace Sensorario\Yaphlo\Tests;
 use Sensorario\Yaphlo\Writer;
 use Sensorario\Yaphlo\Message;
 use Sensorario\Yaphlo\Config;
-use Sensorario\Yaphlo\FilePutContentWrapper;
+use Sensorario\Yaphlo\FileWriterWrapper;
 
 class WriterTest extends \PHPUnit\Framework\TestCase
 {
     private Message $message;
 
-    private FilePutContentWrapper $filePutContent;
+    private FileWriterWrapper $fileWriterWrapper;
 
     private Config $conf;
 
@@ -27,8 +27,8 @@ class WriterTest extends \PHPUnit\Framework\TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->filePutContent = $this
-            ->getMockBuilder(\Sensorario\Yaphlo\FilePutContentWrapper::class)
+        $this->fileWriterWrapper = $this
+            ->getMockBuilder(\Sensorario\Yaphlo\FileWriterWrapper::class)
             ->disableOriginalConstructor()
             ->getMock();
     }
@@ -36,7 +36,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
     /** @test */
     public function writeIntoFile(): void
     {
-        $this->filePutContent
+        $this->fileWriterWrapper
             ->expects($this->once())
             ->method('append');
 
@@ -61,7 +61,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
 
         $writer = new Writer(
             $this->conf,
-            $this->filePutContent,
+            $this->fileWriterWrapper,
         );
 
         $writer->write($this->message);
@@ -75,7 +75,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
             ->method('level')
             ->willReturn(Message::LEVEL_FATAL);
 
-        $this->filePutContent
+        $this->fileWriterWrapper
             ->expects($this->never())
             ->method('append');
 
@@ -94,7 +94,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
 
         $writer = new Writer(
             $this->conf,
-            $this->filePutContent,
+            $this->fileWriterWrapper,
         );
 
         $writer->write($this->message);
@@ -103,7 +103,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
     /** @test */
     public function writerNeverAppendWheneverEnabledChannelsIsEmpty(): void
     {
-        $this->filePutContent
+        $this->fileWriterWrapper
             ->expects($this->never())
             ->method('append');
 
@@ -128,7 +128,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
 
         $writer = new Writer(
             $this->conf,
-            $this->filePutContent,
+            $this->fileWriterWrapper,
         );
 
         $writer->write($this->message);
@@ -137,7 +137,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
     /** @test */
     public function neverAppendIfChannelEnabledIsNotOfMessage(): void
     {
-        $this->filePutContent
+        $this->fileWriterWrapper
             ->expects($this->never())
             ->method('append');
 
@@ -162,7 +162,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
 
         $writer = new Writer(
             $this->conf,
-            $this->filePutContent,
+            $this->fileWriterWrapper,
         );
 
         $writer->write($this->message);
@@ -171,7 +171,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
     /** @test */
     public function appendIfChannelEnabledIsSmaeOfMessage(): void
     {
-        $this->filePutContent
+        $this->fileWriterWrapper
             ->expects($this->once())
             ->method('append');
 
@@ -201,7 +201,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
 
         $writer = new Writer(
             $this->conf,
-            $this->filePutContent,
+            $this->fileWriterWrapper,
         );
 
         $writer->write($this->message);

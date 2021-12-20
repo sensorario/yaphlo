@@ -6,7 +6,7 @@ class Writer
 {
     public function __construct(
         private Config $conf,
-        private FilePutContentWrapper $filePutContent,
+        private FileWriterWrapper $writerAdapter,
     ) {}
 
     public function write(Message $message): void
@@ -21,7 +21,7 @@ class Writer
 
             foreach ($shows as $show) {
                 if ($show === true) {
-                    $this->filePutContent->append($message->render());
+                    $this->writerAdapter->append($message->render());
                 }
             }
         }
