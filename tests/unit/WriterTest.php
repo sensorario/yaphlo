@@ -4,7 +4,7 @@ namespace Sensorario\Yaphlo\Tests;
 
 use Sensorario\Yaphlo\Writer;
 use Sensorario\Yaphlo\Message;
-use Sensorario\Yaphlo\Config;
+use Sensorario\Yaphlo\Config\Config;
 use Sensorario\Yaphlo\FileWriterWrapper;
 
 class WriterTest extends \PHPUnit\Framework\TestCase
@@ -18,7 +18,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
     public function setUp(): void
     {
         $this->conf = $this
-            ->getMockBuilder(\Sensorario\Yaphlo\Config::class)
+            ->getMockBuilder(\Sensorario\Yaphlo\Config\Config::class)
             ->disableOriginalConstructor()
             ->getMock();
 

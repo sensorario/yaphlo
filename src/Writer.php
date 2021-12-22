@@ -5,7 +5,7 @@ namespace Sensorario\Yaphlo;
 class Writer
 {
     public function __construct(
-        private Config $conf,
+        private Config\Config $conf,
         private FileWriterWrapper $writerAdapter,
     ) {}
 

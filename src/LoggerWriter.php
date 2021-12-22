@@ -10,4 +10,6 @@ interface LoggerWriter
         string $level,
         string $channel,
     ): void;
+
+    public function addListener(Listeners\Listener $listener): void;
 }
