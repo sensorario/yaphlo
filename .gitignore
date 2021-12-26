@@ -3,3 +3,4 @@
 /.phpunit.cache/
 /scripts/logger.log
 /coverage/
+/tests/int/**

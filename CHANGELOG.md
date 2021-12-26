@@ -1,8 +1,8 @@
 ## v1.0
 
- - complete level list with INFO, WARNING, ERROR, FATAL
- - add channel to cathegorize messages
- - enable only configured channels
- - add some configuration files
- - add documentation in readme file
- - use phpstan for static analysis
+ - [feat] complete level list with INFO, WARNING, ERROR, FATAL
+ - [feat] add channel to cathegorize messages
+ - [feat] enable only configured channels
+ - [feat] add some configuration files
+ - [feat] add documentation in readme file
+ - [feat] use phpstan for static analysis
