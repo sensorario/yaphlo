@@ -6,6 +6,7 @@ use Sensorario\Yaphlo\Writer;
 use Sensorario\Yaphlo\Message;
 use Sensorario\Yaphlo\Config\Config;
 use Sensorario\Yaphlo\FileWriterWrapper;
+use Sensorario\Yaphlo\ChannelVisibilityChecker;
 
 class WriterTest extends \PHPUnit\Framework\TestCase
 {
@@ -31,6 +32,11 @@ class WriterTest extends \PHPUnit\Framework\TestCase
             ->getMockBuilder(\Sensorario\Yaphlo\FileWriterWrapper::class)
             ->disableOriginalConstructor()
             ->getMock();
+
+        $this->checker = $this
+            ->getMockBuilder(\Sensorario\Yaphlo\ChannelVisibilityChecker::class)
+            ->disableOriginalConstructor()
+            ->getMock();
     }
 
     /** @test */
@@ -50,9 +56,13 @@ class WriterTest extends \PHPUnit\Framework\TestCase
             ->willReturn(Message::LEVEL_INFO);
 
         $this->conf
+            ->expects($this->never())
+            ->method('enabledChannels');
+
+        $this->checker
             ->expects($this->once())
-            ->method('enabledChannels')
-            ->willReturn(['all']);
+            ->method('mustChannelBeHidden')
+            ->willReturn(false);
 
         $this->message
             ->expects($this->once())
@@ -62,6 +72,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
         $writer = new Writer(
             $this->conf,
             $this->fileWriterWrapper,
+            $this->checker,
         );
 
         $writer->write($this->message);
@@ -95,6 +106,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
         $writer = new Writer(
             $this->conf,
             $this->fileWriterWrapper,
+            $this->checker,
         );
 
         $writer->write($this->message);
@@ -117,9 +129,13 @@ class WriterTest extends \PHPUnit\Framework\TestCase
             ->willReturn(Message::LEVEL_INFO);
 
         $this->conf
+            ->expects($this->never())
+            ->method('enabledchannels');
+
+        $this->checker
             ->expects($this->once())
-            ->method('enabledChannels')
-            ->willReturn([]);
+            ->method('mustChannelBeHidden')
+            ->willReturn(true);
 
         $this->message
             ->expects($this->once())
@@ -129,6 +145,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
         $writer = new Writer(
             $this->conf,
             $this->fileWriterWrapper,
+            $this->checker,
         );
 
         $writer->write($this->message);
@@ -151,9 +168,13 @@ class WriterTest extends \PHPUnit\Framework\TestCase
             ->willReturn(Message::LEVEL_INFO);
 
         $this->conf
+            ->expects($this->never())
+            ->method('enabledChannels');
+
+        $this->checker
             ->expects($this->once())
-            ->method('enabledChannels')
-            ->willReturn(['foo']);
+            ->method('mustChannelBeHidden')
+            ->willReturn(true);
 
         $this->message
             ->expects($this->once())
@@ -163,6 +184,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
         $writer = new Writer(
             $this->conf,
             $this->fileWriterWrapper,
+            $this->checker,
         );
 
         $writer->write($this->message);
@@ -180,9 +202,8 @@ class WriterTest extends \PHPUnit\Framework\TestCase
             ->method('render');
 
         $this->message
-            ->expects($this->once())
-            ->method('getChannel')
-            ->willReturn('foo');
+            ->expects($this->never())
+            ->method('getChannel');
 
         $this->conf
             ->expects($this->once())
@@ -190,9 +211,14 @@ class WriterTest extends \PHPUnit\Framework\TestCase
             ->willReturn(Message::LEVEL_INFO);
 
         $this->conf
-            ->expects($this->once())
+            ->expects($this->never())
             ->method('enabledChannels')
             ->willReturn(['foo']);
+
+        $this->checker
+            ->expects($this->once())
+            ->method('mustChannelBeHidden')
+            ->willReturn(false);
 
         $this->message
             ->expects($this->once())
@@ -202,6 +228,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
         $writer = new Writer(
             $this->conf,
             $this->fileWriterWrapper,
+            $this->checker,
         );
 
         $writer->write($this->message);

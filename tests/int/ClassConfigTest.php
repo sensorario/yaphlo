@@ -3,6 +3,7 @@
 use Sensorario\Yaphlo\Logger;
 use Sensorario\Yaphlo\Message;
 use Sensorario\Yaphlo\Writer;
+use Sensorario\Yaphlo\ChannelVisibilityChecker;
 use Sensorario\Yaphlo\Listeners\Listener;
 use Sensorario\Yaphlo\WriterAdapter;
 use Sensorario\Yaphlo\Config\Config;
@@ -15,16 +16,19 @@ class ClassConfigTest extends PHPUnit\Framework\TestCase
     /** @test */
     public function logSomethig()
     {
+        $config = new CustomConfig(
+            Message::LEVEL_INFO,
+            ['channel A'],
+        );
+
         $logger = new Logger(
             new Message,
             new Writer(
-                new CustomConfig(
-                    Message::LEVEL_INFO,
-                    ['channel A'],
-                ),
+                $config,
                 new WriterAdapter(
                     __DIR__ . '/logger.log',
-                )
+                ),
+                new ChannelVisibilityChecker($config),
             )
         );
 

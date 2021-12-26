@@ -4,7 +4,8 @@ namespace Sensorario\Yaphlo\Config;
 
 interface Config
 {
-    public function level();
+    public function level(): string;
 
-    public function enabledChannels();
+    /** @return array<int, string> */
+    public function enabledChannels(): array;
 }
