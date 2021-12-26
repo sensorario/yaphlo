@@ -15,7 +15,7 @@ use Sensorario\Yaphlo\Writer;
 use Sensorario\Yaphlo\WriterAdapter;
 use Sensorario\Yaphlo\Config;
 use Sensorario\Yaphlo\ArrayConfig;
-use Sensorario\Yaphlo\CustomConfig;
+use Sensorario\Yaphlo\Config\CustomConfig;
 use Sensorario\Yaphlo\ChannelVisibilityChecker;
 
 $config = new CustomConfig(
@@ -55,6 +55,7 @@ use Sensorario\Yaphlo\Logger;
 use Sensorario\Yaphlo\Message;
 use Sensorario\Yaphlo\Writer;
 use Sensorario\Yaphlo\WriterAdapter;
+use Sensorario\Yaphlo\Config\ArrayConfig;
 use Sensorario\Yaphlo\ChannelVisibilityChecker;
 
 $config = [

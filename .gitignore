@@ -4,3 +4,4 @@
 /scripts/logger.log
 /coverage/
 /tests/int/**
+/examples/
