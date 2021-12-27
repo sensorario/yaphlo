@@ -15,18 +15,22 @@ use Sensorario\Yaphlo\Writer;
 use Sensorario\Yaphlo\WriterAdapter;
 use Sensorario\Yaphlo\Config;
 use Sensorario\Yaphlo\ArrayConfig;
-use Sensorario\Yaphlo\CustomConfig;
+use Sensorario\Yaphlo\Config\CustomConfig;
+use Sensorario\Yaphlo\ChannelVisibilityChecker;
+
+$config = new CustomConfig(
+    Message::LEVEL_INFO,
+    ['channel A'],
+);
 
 $logger = new Logger(
     new Message,
     new Writer(
-        new CustomConfig(
-            Message::LEVEL_INFO,
-            ['channel A'],
-        ),
+        $config,
         new WriterAdapter(
             __DIR__ . '/logger.log',
-        )
+        ),
+        new ChannelVisibilityChecker($config),
     )
 );
 
@@ -51,6 +55,8 @@ use Sensorario\Yaphlo\Logger;
 use Sensorario\Yaphlo\Message;
 use Sensorario\Yaphlo\Writer;
 use Sensorario\Yaphlo\WriterAdapter;
+use Sensorario\Yaphlo\Config\ArrayConfig;
+use Sensorario\Yaphlo\ChannelVisibilityChecker;
 
 $config = [
     'logger' => [
@@ -67,7 +73,8 @@ $logger = new Logger(
         new ArrayConfig($config),
         new WriterAdapter(
             __DIR__ . '/logger.log',
-        )
+        ),
+        new ChannelVisibilityChecker(new ArrayConfig($config)),
     )
 );
 

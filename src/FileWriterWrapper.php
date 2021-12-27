@@ -2,7 +2,7 @@
 
 namespace Sensorario\Yaphlo;
 
-interface FilePutContentWrapper
+interface FileWriterWrapper
 {
     public function __construct(
         string $filePath

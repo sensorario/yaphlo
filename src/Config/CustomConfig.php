@@ -1,6 +1,6 @@
 <?php
 
-namespace Sensorario\Yaphlo;
+namespace Sensorario\Yaphlo\Config;
 
 class CustomConfig implements Config
 {

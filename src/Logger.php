@@ -4,6 +4,10 @@ namespace Sensorario\Yaphlo;
 
 class Logger implements LoggerWriter
 {
+    private bool $listenerEnabled = false;
+
+    private Listeners\Listener $listener;
+
     public function __construct(
         private Message $msg,
         private Writer $writer,
@@ -17,6 +21,9 @@ class Logger implements LoggerWriter
         $this->msg->setContent($message);
         $this->msg->setLevel($level);
         $this->msg->setChannel($channel);
+        if ($this->listenerEnabled === true) {
+            $this->listener->read(json_encode($message));
+        }
         $this->writer->write($this->msg);
     }
 
@@ -66,5 +73,11 @@ class Logger implements LoggerWriter
             Message::LEVEL_WARNING,
             $channel
         );
+    }
+
+    public function addListener(Listeners\Listener $listener): void
+    {
+        $this->listener = $listener;
+        $this->listenerEnabled = true;
     }
 }

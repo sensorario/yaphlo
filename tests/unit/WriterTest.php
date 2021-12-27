@@ -4,21 +4,22 @@ namespace Sensorario\Yaphlo\Tests;
 
 use Sensorario\Yaphlo\Writer;
 use Sensorario\Yaphlo\Message;
-use Sensorario\Yaphlo\Config;
-use Sensorario\Yaphlo\FilePutContentWrapper;
+use Sensorario\Yaphlo\Config\Config;
+use Sensorario\Yaphlo\FileWriterWrapper;
+use Sensorario\Yaphlo\ChannelVisibilityChecker;
 
 class WriterTest extends \PHPUnit\Framework\TestCase
 {
     private Message $message;
 
-    private FilePutContentWrapper $filePutContent;
+    private FileWriterWrapper $fileWriterWrapper;
 
     private Config $conf;
 
     public function setUp(): void
     {
         $this->conf = $this
-            ->getMockBuilder(\Sensorario\Yaphlo\Config::class)
+            ->getMockBuilder(\Sensorario\Yaphlo\Config\Config::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -27,8 +28,13 @@ class WriterTest extends \PHPUnit\Framework\TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->filePutContent = $this
-            ->getMockBuilder(\Sensorario\Yaphlo\FilePutContentWrapper::class)
+        $this->fileWriterWrapper = $this
+            ->getMockBuilder(\Sensorario\Yaphlo\FileWriterWrapper::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $this->checker = $this
+            ->getMockBuilder(\Sensorario\Yaphlo\ChannelVisibilityChecker::class)
             ->disableOriginalConstructor()
             ->getMock();
     }
@@ -36,7 +42,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
     /** @test */
     public function writeIntoFile(): void
     {
-        $this->filePutContent
+        $this->fileWriterWrapper
             ->expects($this->once())
             ->method('append');
 
@@ -50,9 +56,13 @@ class WriterTest extends \PHPUnit\Framework\TestCase
             ->willReturn(Message::LEVEL_INFO);
 
         $this->conf
+            ->expects($this->never())
+            ->method('enabledChannels');
+
+        $this->checker
             ->expects($this->once())
-            ->method('enabledChannels')
-            ->willReturn(['all']);
+            ->method('mustChannelBeHidden')
+            ->willReturn(false);
 
         $this->message
             ->expects($this->once())
@@ -61,7 +71,8 @@ class WriterTest extends \PHPUnit\Framework\TestCase
 
         $writer = new Writer(
             $this->conf,
-            $this->filePutContent,
+            $this->fileWriterWrapper,
+            $this->checker,
         );
 
         $writer->write($this->message);
@@ -75,7 +86,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
             ->method('level')
             ->willReturn(Message::LEVEL_FATAL);
 
-        $this->filePutContent
+        $this->fileWriterWrapper
             ->expects($this->never())
             ->method('append');
 
@@ -94,7 +105,8 @@ class WriterTest extends \PHPUnit\Framework\TestCase
 
         $writer = new Writer(
             $this->conf,
-            $this->filePutContent,
+            $this->fileWriterWrapper,
+            $this->checker,
         );
 
         $writer->write($this->message);
@@ -103,7 +115,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
     /** @test */
     public function writerNeverAppendWheneverEnabledChannelsIsEmpty(): void
     {
-        $this->filePutContent
+        $this->fileWriterWrapper
             ->expects($this->never())
             ->method('append');
 
@@ -117,9 +129,13 @@ class WriterTest extends \PHPUnit\Framework\TestCase
             ->willReturn(Message::LEVEL_INFO);
 
         $this->conf
+            ->expects($this->never())
+            ->method('enabledchannels');
+
+        $this->checker
             ->expects($this->once())
-            ->method('enabledChannels')
-            ->willReturn([]);
+            ->method('mustChannelBeHidden')
+            ->willReturn(true);
 
         $this->message
             ->expects($this->once())
@@ -128,7 +144,8 @@ class WriterTest extends \PHPUnit\Framework\TestCase
 
         $writer = new Writer(
             $this->conf,
-            $this->filePutContent,
+            $this->fileWriterWrapper,
+            $this->checker,
         );
 
         $writer->write($this->message);
@@ -137,7 +154,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
     /** @test */
     public function neverAppendIfChannelEnabledIsNotOfMessage(): void
     {
-        $this->filePutContent
+        $this->fileWriterWrapper
             ->expects($this->never())
             ->method('append');
 
@@ -151,9 +168,13 @@ class WriterTest extends \PHPUnit\Framework\TestCase
             ->willReturn(Message::LEVEL_INFO);
 
         $this->conf
+            ->expects($this->never())
+            ->method('enabledChannels');
+
+        $this->checker
             ->expects($this->once())
-            ->method('enabledChannels')
-            ->willReturn(['foo']);
+            ->method('mustChannelBeHidden')
+            ->willReturn(true);
 
         $this->message
             ->expects($this->once())
@@ -162,7 +183,8 @@ class WriterTest extends \PHPUnit\Framework\TestCase
 
         $writer = new Writer(
             $this->conf,
-            $this->filePutContent,
+            $this->fileWriterWrapper,
+            $this->checker,
         );
 
         $writer->write($this->message);
@@ -171,7 +193,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
     /** @test */
     public function appendIfChannelEnabledIsSmaeOfMessage(): void
     {
-        $this->filePutContent
+        $this->fileWriterWrapper
             ->expects($this->once())
             ->method('append');
 
@@ -180,9 +202,8 @@ class WriterTest extends \PHPUnit\Framework\TestCase
             ->method('render');
 
         $this->message
-            ->expects($this->once())
-            ->method('getChannel')
-            ->willReturn('foo');
+            ->expects($this->never())
+            ->method('getChannel');
 
         $this->conf
             ->expects($this->once())
@@ -190,9 +211,14 @@ class WriterTest extends \PHPUnit\Framework\TestCase
             ->willReturn(Message::LEVEL_INFO);
 
         $this->conf
-            ->expects($this->once())
+            ->expects($this->never())
             ->method('enabledChannels')
             ->willReturn(['foo']);
+
+        $this->checker
+            ->expects($this->once())
+            ->method('mustChannelBeHidden')
+            ->willReturn(false);
 
         $this->message
             ->expects($this->once())
@@ -201,7 +227,8 @@ class WriterTest extends \PHPUnit\Framework\TestCase
 
         $writer = new Writer(
             $this->conf,
-            $this->filePutContent,
+            $this->fileWriterWrapper,
+            $this->checker,
         );
 
         $writer->write($this->message);

@@ -143,6 +143,9 @@ class MessageTest extends \PHPUnit\Framework\TestCase
 
         $message->setLevel(Message::LEVEL_INFO);
         $this->assertTrue($message->isPrintableWithLevel(Message::LEVEL_ERROR));
+
+        $message->setLevel(Message::LEVEL_ERROR);
+        $this->assertFalse($message->isPrintableWithLevel(Message::LEVEL_INFO));
     }
 
     /** @test */

@@ -3,7 +3,7 @@
 namespace Sensorario\Yaphlo;
 
 /** @codeCoverageIgnore */
-class WriterAdapter implements FilePutContentWrapper
+class WriterAdapter implements FileWriterWrapper
 {
     public function __construct(
         private string $filePath,
