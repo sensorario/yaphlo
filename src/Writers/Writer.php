@@ -22,6 +22,7 @@ class Writer
             return;
         }
 
+        $this->checker->setConfig($this->conf);
         if ($this->checker->mustChannelBeHidden($message)) {
             return;
         }

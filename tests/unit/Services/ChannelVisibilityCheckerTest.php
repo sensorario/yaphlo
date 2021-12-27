@@ -30,9 +30,9 @@ class ChannelVisibilityCheckerTest extends \PHPUnit\Framework\TestCase
             ->method('enabledChannels')
             ->willReturn(['first channel', 'second channel']);
 
-        $this->checker = new ChannelVisibilityChecker(
-            $this->conf
-        );
+        $this->checker = new ChannelVisibilityChecker();
+
+        $this->checker->setConfig($this->conf);
 
         $hide = $this->checker->mustChannelBeHidden($this->message);
 
@@ -50,9 +50,9 @@ class ChannelVisibilityCheckerTest extends \PHPUnit\Framework\TestCase
             ->method('enabledChannels')
             ->willReturn(['first channel', 'second channel']);
 
-        $this->checker = new ChannelVisibilityChecker(
-            $this->conf
-        );
+        $this->checker = new ChannelVisibilityChecker();
+
+        $this->checker->setConfig($this->conf);
 
         $hide = $this->checker->mustChannelBeHidden($this->message);
 
