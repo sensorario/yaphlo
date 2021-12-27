@@ -2,10 +2,10 @@
 
 use Sensorario\Yaphlo\Logger;
 use Sensorario\Yaphlo\Message;
-use Sensorario\Yaphlo\Writer;
 use Sensorario\Yaphlo\ChannelVisibilityChecker;
 use Sensorario\Yaphlo\Listeners\Listener;
-use Sensorario\Yaphlo\WriterAdapter;
+use Sensorario\Yaphlo\Writers\Writer;
+use Sensorario\Yaphlo\Writers\WriterAdapter;
 use Sensorario\Yaphlo\Config\Config;
 use Sensorario\Yaphlo\Config\CustomConfig;
 

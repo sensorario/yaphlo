@@ -2,6 +2,8 @@
 
 namespace Sensorario\Yaphlo;
 
+use Sensorario\Yaphlo\Message;
+
 class Logger implements LoggerWriter
 {
     private bool $listenerEnabled = false;
@@ -10,7 +12,7 @@ class Logger implements LoggerWriter
 
     public function __construct(
         private Message $msg,
-        private Writer $writer,
+        private Writers\Writer $writer,
     ) {}
 
     public function write(

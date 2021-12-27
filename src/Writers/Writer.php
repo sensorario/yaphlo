@@ -1,6 +1,10 @@
 <?php
 
-namespace Sensorario\Yaphlo;
+namespace Sensorario\Yaphlo\Writers;
+
+use Sensorario\Yaphlo\Message;
+use Sensorario\Yaphlo\Config;
+use Sensorario\Yaphlo\ChannelVisibilityChecker;
 
 class Writer
 {

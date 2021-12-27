@@ -15,7 +15,7 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
             ->getMock();
 
         $this->writer = $this
-            ->getMockBuilder(\Sensorario\Yaphlo\Writer::class)
+            ->getMockBuilder(\Sensorario\Yaphlo\Writers\Writer::class)
             ->disableOriginalConstructor()
             ->getMock();
     }

@@ -2,10 +2,10 @@
 
 namespace Sensorario\Yaphlo\Tests;
 
-use Sensorario\Yaphlo\Writer;
 use Sensorario\Yaphlo\Message;
 use Sensorario\Yaphlo\Config\Config;
-use Sensorario\Yaphlo\FileWriterWrapper;
+use Sensorario\Yaphlo\Writers\FileWriterWrapper;
+use Sensorario\Yaphlo\Writers\Writer;
 use Sensorario\Yaphlo\ChannelVisibilityChecker;
 
 class WriterTest extends \PHPUnit\Framework\TestCase
@@ -29,7 +29,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
             ->getMock();
 
         $this->fileWriterWrapper = $this
-            ->getMockBuilder(\Sensorario\Yaphlo\FileWriterWrapper::class)
+            ->getMockBuilder(\Sensorario\Yaphlo\Writers\FileWriterWrapper::class)
             ->disableOriginalConstructor()
             ->getMock();
 

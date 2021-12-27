@@ -11,8 +11,8 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use Sensorario\Yaphlo\Logger;
 use Sensorario\Yaphlo\Message;
-use Sensorario\Yaphlo\Writer;
-use Sensorario\Yaphlo\WriterAdapter;
+use Sensorario\Yaphlo\Writers\Writer;
+use Sensorario\Yaphlo\Writers\WriterAdapter;
 use Sensorario\Yaphlo\Config;
 use Sensorario\Yaphlo\ArrayConfig;
 use Sensorario\Yaphlo\Config\CustomConfig;
@@ -53,8 +53,8 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use Sensorario\Yaphlo\Logger;
 use Sensorario\Yaphlo\Message;
-use Sensorario\Yaphlo\Writer;
-use Sensorario\Yaphlo\WriterAdapter;
+use Sensorario\Yaphlo\Writers\Writer;
+use Sensorario\Yaphlo\Writers\WriterAdapter;
 use Sensorario\Yaphlo\Config\ArrayConfig;
 use Sensorario\Yaphlo\ChannelVisibilityChecker;
 
