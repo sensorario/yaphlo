@@ -71,7 +71,7 @@ class MessageTest extends \PHPUnit\Framework\TestCase
     /** @test */
     public function rejectUnknownLevels()
     {
-        $this->expectException(\Sensorario\Yaphlo\WrongLevelException::class);
+        $this->expectException(\Sensorario\Yaphlo\Exceptions\WrongLevelException::class);
         $this->expectExceptionMessage('Oops! Wrong level Exception!!');
 
         $content = [

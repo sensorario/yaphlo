@@ -55,7 +55,7 @@ class Message
     public function setLevel(string $level): void
     {
         if (!in_array($level, self::$levelMap)) {
-            throw new WrongLevelException();
+            throw new Exceptions\WrongLevelException();
         }
 
         $this->level = $level;
