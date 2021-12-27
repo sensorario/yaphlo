@@ -16,7 +16,7 @@ use Sensorario\Yaphlo\Writers\WriterAdapter;
 use Sensorario\Yaphlo\Config;
 use Sensorario\Yaphlo\ArrayConfig;
 use Sensorario\Yaphlo\Config\CustomConfig;
-use Sensorario\Yaphlo\ChannelVisibilityChecker;
+use Sensorario\Yaphlo\Services\ChannelVisibilityChecker;
 
 $config = new CustomConfig(
     Message::LEVEL_INFO,
@@ -56,7 +56,7 @@ use Sensorario\Yaphlo\Message;
 use Sensorario\Yaphlo\Writers\Writer;
 use Sensorario\Yaphlo\Writers\WriterAdapter;
 use Sensorario\Yaphlo\Config\ArrayConfig;
-use Sensorario\Yaphlo\ChannelVisibilityChecker;
+use Sensorario\Yaphlo\Services\ChannelVisibilityChecker;
 
 $config = [
     'logger' => [

@@ -1,6 +1,9 @@
 <?php
 
-namespace Sensorario\Yaphlo;
+namespace Sensorario\Yaphlo\Services;
+
+use Sensorario\Yaphlo\Config;
+use Sensorario\Yaphlo\Message;
 
 class ChannelVisibilityChecker
 {

@@ -2,7 +2,7 @@
 
 use Sensorario\Yaphlo\Logger;
 use Sensorario\Yaphlo\Message;
-use Sensorario\Yaphlo\ChannelVisibilityChecker;
+use Sensorario\Yaphlo\Services\ChannelVisibilityChecker;
 use Sensorario\Yaphlo\Writers\Writer;
 use Sensorario\Yaphlo\Writers\WriterAdapter;
 use Sensorario\Yaphlo\Listeners\Listener;

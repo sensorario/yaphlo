@@ -6,7 +6,7 @@ use Sensorario\Yaphlo\Message;
 use Sensorario\Yaphlo\Config\Config;
 use Sensorario\Yaphlo\Writers\FileWriterWrapper;
 use Sensorario\Yaphlo\Writers\Writer;
-use Sensorario\Yaphlo\ChannelVisibilityChecker;
+use Sensorario\Yaphlo\Services\ChannelVisibilityChecker;
 
 class WriterTest extends \PHPUnit\Framework\TestCase
 {
@@ -34,7 +34,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
             ->getMock();
 
         $this->checker = $this
-            ->getMockBuilder(\Sensorario\Yaphlo\ChannelVisibilityChecker::class)
+            ->getMockBuilder(\Sensorario\Yaphlo\Services\ChannelVisibilityChecker::class)
             ->disableOriginalConstructor()
             ->getMock();
     }
