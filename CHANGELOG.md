@@ -6,3 +6,4 @@
  - [feat] add some configuration files
  - [feat] add documentation in readme file
  - [feat] use phpstan for static analysis
+ - [feat] documentation in readme file
