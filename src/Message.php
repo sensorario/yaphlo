@@ -110,6 +110,10 @@ class Message
 
     public function isPrintableWithLevel(string $level): bool
     {
+        if ($this->level === null) {
+            throw new Exceptions\MissingLevelException();
+        }
+
         $map = $this->inverseMap();
         $levelNumber = $map[$level];
         $levelMe = $map[$this->level] ?? 0;

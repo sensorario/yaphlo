@@ -149,6 +149,14 @@ class MessageTest extends \PHPUnit\Framework\TestCase
     }
 
     /** @test */
+    public function throwExceptionWhenverMessageLevelIsNotDefined()
+    {
+        $this->expectException(\Sensorario\Yaphlo\Exceptions\MissingLevelException::class);
+        $message = new Message();
+        $this->assertTrue($message->isPrintableWithLevel(Message::LEVEL_INFO));
+    }
+
+    /** @test */
     public function neverLogMessagesWithLevelSuperiorOfConfiguredForLogs()
     {
         $message = new Message();
