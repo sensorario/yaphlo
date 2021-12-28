@@ -133,17 +133,25 @@ class MessageTest extends \PHPUnit\Framework\TestCase
     }
 
     /** @test */
-    public function doesLevelPrints()
+    public function alwaysLogMessageWithSameLevelOfConfiguration()
     {
         $message = new Message();
+        $message->setLevel(Message::LEVEL_ERROR);
         $this->assertTrue($message->isPrintableWithLevel(Message::LEVEL_ERROR));
+    }
 
-        $message->setLevel(Message::LEVEL_FATAL);
-        $this->assertFalse($message->isPrintableWithLevel(Message::LEVEL_ERROR));
-
+    /** @test */
+    public function alwaysLogMessageWithLevelLowerThanConfiguredForLogs()
+    {
+        $message = new Message();
         $message->setLevel(Message::LEVEL_INFO);
         $this->assertTrue($message->isPrintableWithLevel(Message::LEVEL_ERROR));
+    }
 
+    /** @test */
+    public function neverLogMessagesWithLevelSuperiorOfConfiguredForLogs()
+    {
+        $message = new Message();
         $message->setLevel(Message::LEVEL_ERROR);
         $this->assertFalse($message->isPrintableWithLevel(Message::LEVEL_INFO));
     }
