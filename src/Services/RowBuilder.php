@@ -2,26 +2,35 @@
 
 namespace Sensorario\Yaphlo\Services;
 
+use DateTime;
+use Sensorario\Yaphlo\Message;
+
 class RowBuilder
 {
-    private $items;
+    private string $datetime;
 
-    private $datetime;
+    private string $level;
 
-    private $level;
+    private string $channel;
 
-    private $channel;
+    private string $line;
 
-    private $line;
+    public function __construct()
+    {
+        $this->datetime = (new \DateTime('now'))->format('[Y-m-d H:i:s]');
+    }
 
     public function reset(): void
     {
-        $this->items = [];
+        $this->datetime = (new \DateTime('now'))->format('[Y-m-d H:i:s]');
+        $this->level = Message::LEVEL_INFO;
+        $this->channel = '';
+        $this->line = '';
     }
 
     public function addDateTime(\DateTime $datetime): void
     {
-        $this->datetime = $datetime->format('Y-m-d H:i:s');
+        $this->datetime = $datetime->format('[Y-m-d H:i:s]');
     }
 
     public function addLevel(?string $level): void
@@ -36,11 +45,34 @@ class RowBuilder
 
     public function addLine(string $line): void
     {
-        $this->items[] = "$line";
+        $this->line = $line;
     }
 
-    public function rendered(int $index): string
+    public function rendered(): string
     {
-        return join(' ', $this->items);
+        $row = [];
+        $row[] = $this->datetime;
+
+        if (!isset($this->line)) {
+            throw new \RuntimeException('Oops! Missing line!');
+        }
+
+        if (!isset($this->level)) {
+            throw new \RuntimeException('Oops! Missing level!');
+        }
+
+        if (!isset($this->channel)) {
+            throw new \RuntimeException('Oops! Missing channel!');
+        }
+
+        if ($this->level !== null) {
+            $row[] = '[' . $this->level . ']';
+        }
+        if ($this->channel !== '') {
+            $row[] = '[' . $this->channel . ']';
+        }
+        $row[] = $this->line;
+        $rendered = join(' ', $row);
+        return trim($rendered);
     }
 }

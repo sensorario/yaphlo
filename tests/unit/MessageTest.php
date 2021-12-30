@@ -68,7 +68,6 @@ class MessageTest extends \PHPUnit\Framework\TestCase
 
         $this->builder->expects($this->exactly(3))
             ->method('rendered')
-            ->withConsecutive([0], [1], [2])
             ->willReturnOnConsecutiveCalls(
                 '[' . $datetime . '] [INFO] [channel A] {',
                 '[' . $datetime . '] [INFO] [channel A]     "foo": "bar"',
@@ -124,7 +123,6 @@ class MessageTest extends \PHPUnit\Framework\TestCase
 
         $this->builder->expects($this->exactly(3))
             ->method('rendered')
-            ->withConsecutive([0], [1], [2])
             ->willReturnOnConsecutiveCalls(
                 '' . $datetime . ' {',
                 '' . $datetime . '     "foo": "bar"',
@@ -170,7 +168,6 @@ class MessageTest extends \PHPUnit\Framework\TestCase
 
         $this->builder->expects($this->exactly(3))
             ->method('rendered')
-            ->withConsecutive([0], [1], [2])
             ->willReturnOnConsecutiveCalls(
                 '' . $datetime . ' [INFO] {',
                 '' . $datetime . ' [INFO]     "foo": "bar"',
@@ -234,7 +231,6 @@ class MessageTest extends \PHPUnit\Framework\TestCase
 
         $this->builder->expects($this->exactly(3))
             ->method('rendered')
-            ->withConsecutive([0], [1], [2])
             ->willReturnOnConsecutiveCalls(
                 '' . $datetime . ' [INFO] {',
                 '' . $datetime . ' [INFO]     "foo": "bar"',
@@ -339,7 +335,6 @@ class MessageTest extends \PHPUnit\Framework\TestCase
 
         $this->builder->expects($this->exactly(3))
             ->method('rendered')
-            ->withConsecutive([0], [1], [2])
             ->willReturnOnConsecutiveCalls(
                 '' . $datetime . ' [INFO] [something] {',
                 '' . $datetime . ' [INFO] [something]     "foo": "bar"',

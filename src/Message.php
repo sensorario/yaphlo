@@ -80,10 +80,10 @@ class Message
         $this->builder->addChannel($this->channel);
         $this->builder->addDateTime($this->datetime);
 
-        foreach (explode("\n", $encoded) as $index => $line) {
+        foreach (explode("\n", $encoded) as $line) {
             $this->builder->addLine($line);
 
-            $rendered[] = $this->builder->rendered($index);
+            $rendered[] = $this->builder->rendered();
         }
 
         return implode("\n", $rendered);
