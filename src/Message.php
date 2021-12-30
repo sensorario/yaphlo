@@ -2,6 +2,8 @@
 
 namespace Sensorario\Yaphlo;
 
+use Sensorario\Yaphlo\Services\RowBuilder;
+
 class Message
 {
     const LEVEL_INFO = 'INFO';
@@ -29,8 +31,9 @@ class Message
         self::LEVEL_FATAL,
     ];
 
-    public function __construct()
-    {
+    public function __construct(
+        private RowBuilder $builder,
+    ) {
         $this->datetime = new \DateTime();
     }
 
@@ -71,25 +74,16 @@ class Message
         $rendered = [];
 
         $datetime = $this->datetime->format('[Y-m-d H:i:s]');
-        foreach (explode("\n", $encoded) as $line) {
-            $items = [];
 
-            $items[] = $datetime;
+        $this->builder->reset();
+        $this->builder->addLevel($this->level);
+        $this->builder->addChannel($this->channel);
+        $this->builder->addDateTime($this->datetime);
 
-            if ($this->level !== null) {
-                $items[] = '[' . $this->level . ']';
-            }
+        foreach (explode("\n", $encoded) as $index => $line) {
+            $this->builder->addLine($line);
 
-            if (
-                $this->channel !== null
-                && $this->channel !== ''
-            ) {
-                $items[] = '[' . $this->channel . ']';
-            }
-
-            $items[] = $line;
-
-            $rendered[] = join(' ', $items);
+            $rendered[] = $this->builder->rendered($index);
         }
 
         return implode("\n", $rendered);
