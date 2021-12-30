@@ -16,6 +16,7 @@ class ChannelVisibilityCheckerTest extends \PHPUnit\Framework\TestCase
 
         $this->message = $this
             ->getMockBuilder(\Sensorario\Yaphlo\Message::class)
+            ->disableOriginalConstructor()
             ->getMock();
     }
 
