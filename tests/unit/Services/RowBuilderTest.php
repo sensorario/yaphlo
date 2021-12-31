@@ -2,14 +2,19 @@
 
 namespace Sensorario\Yaphlo\Tests\Services;
 
-use Sensorario\Yaphlo\Services\RowBuilder;
+use Sensorario\Yaphlo\Services\RowBuilder\RowBuilder;
+use Sensorario\Yaphlo\Services\RowBuilder\Exceptions\{
+        MissingLineException,
+        MissingLevelException,
+        MissingChannelException,
+    };
 
 class RowBuilderTest extends \PHPUnit\Framework\TestCase
 {
     /** @test */
     public function missingLevelThrowsAnException()
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(MissingLineException::class);
         $this->expectExceptionMessage('Oops! Missing line!');
 
         $builder = new RowBuilder();
@@ -20,7 +25,7 @@ class RowBuilderTest extends \PHPUnit\Framework\TestCase
     /** @test */
     public function addLine()
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(MissingLevelException::class);
         $this->expectExceptionMessage('Oops! Missing level!');
 
         $builder = new RowBuilder();
@@ -32,7 +37,7 @@ class RowBuilderTest extends \PHPUnit\Framework\TestCase
     /** @test */
     public function addLineAndLevel()
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(MissingChannelException::class);
         $this->expectExceptionMessage('Oops! Missing channel!');
 
         $builder = new RowBuilder();

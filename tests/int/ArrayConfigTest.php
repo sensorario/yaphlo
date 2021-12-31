@@ -3,7 +3,7 @@
 use Sensorario\Yaphlo\Logger;
 use Sensorario\Yaphlo\Message;
 use Sensorario\Yaphlo\Services\ChannelVisibilityChecker;
-use Sensorario\Yaphlo\Services\RowBuilder;
+use Sensorario\Yaphlo\Services\RowBuilder\RowBuilder;
 use Sensorario\Yaphlo\Writers\Writer;
 use Sensorario\Yaphlo\Writers\WriterAdapter;
 use Sensorario\Yaphlo\Listeners\Listener;

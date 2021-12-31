@@ -2,7 +2,7 @@
 
 namespace Sensorario\Yaphlo;
 
-use Sensorario\Yaphlo\Services\RowBuilder;
+use Sensorario\Yaphlo\Services\RowBuilder\RowBuilder;
 
 class Message
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Sensorario\Yaphlo\Services;
+namespace Sensorario\Yaphlo\Services\RowBuilder;
 
 use DateTime;
 use Sensorario\Yaphlo\Message;
@@ -54,15 +54,15 @@ class RowBuilder
         $row[] = $this->datetime;
 
         if (!isset($this->line)) {
-            throw new \RuntimeException('Oops! Missing line!');
+            throw new Exceptions\MissingLineException();
         }
 
         if (!isset($this->level)) {
-            throw new \RuntimeException('Oops! Missing level!');
+            throw new Exceptions\MissingLevelException();
         }
 
         if (!isset($this->channel)) {
-            throw new \RuntimeException('Oops! Missing channel!');
+            throw new Exceptions\MissingChannelException();
         }
 
         if ($this->level !== null) {
