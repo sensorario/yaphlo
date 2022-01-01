@@ -23,3 +23,5 @@ bash_php:
 
 stan:
 	./bin/phpstan analyze src --level=6
+
+pipe: stan runtests
