@@ -10,13 +10,14 @@ Yet another php logger
 require __DIR__ . '/../vendor/autoload.php';
 
 use Sensorario\Yaphlo\Logger;
-use Sensorario\Yaphlo\Message;
+use Sensorario\Yaphlo\Objects\Message;
 use Sensorario\Yaphlo\Writers\Writer;
 use Sensorario\Yaphlo\Writers\WriterAdapter;
 use Sensorario\Yaphlo\Config;
 use Sensorario\Yaphlo\ArrayConfig;
 use Sensorario\Yaphlo\Config\CustomConfig;
 use Sensorario\Yaphlo\Services\ChannelVisibilityChecker;
+use Sensorario\Yaphlo\Services\RowBuilder\RowBuilder;
 
 $config = new CustomConfig(
     Message::LEVEL_INFO,
@@ -24,7 +25,7 @@ $config = new CustomConfig(
 );
 
 $logger = new Logger(
-    new Message,
+    new Message(new RowBuilder()),
     new Writer(
         $config,
         new WriterAdapter(
@@ -52,11 +53,12 @@ I prefer this way because configuration can be placed into a configuration file 
 require __DIR__ . '/../vendor/autoload.php';
 
 use Sensorario\Yaphlo\Logger;
-use Sensorario\Yaphlo\Message;
+use Sensorario\Yaphlo\Objects\Message;
 use Sensorario\Yaphlo\Writers\Writer;
 use Sensorario\Yaphlo\Writers\WriterAdapter;
 use Sensorario\Yaphlo\Config\ArrayConfig;
 use Sensorario\Yaphlo\Services\ChannelVisibilityChecker;
+use Sensorario\Yaphlo\Services\RowBuilder\RowBuilder;
 
 $config = [
     'logger' => [
@@ -68,7 +70,7 @@ $config = [
 ];
 
 $logger = new Logger(
-    new Message,
+    new Message(new RowBuilder()),
     new Writer(
         new ArrayConfig($config),
         new WriterAdapter(
