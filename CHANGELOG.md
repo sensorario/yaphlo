@@ -9,3 +9,4 @@
  - [feat] documentation in readme file
  - [feat] throw exception whenever message level is not defined
  - [feat] add row builder service
+ - [feat] keep objects in specific objects folder
