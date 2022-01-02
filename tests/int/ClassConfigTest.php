@@ -1,11 +1,12 @@
 <?php
 
 use Sensorario\Yaphlo\Logger;
-use Sensorario\Yaphlo\Message;
-use Sensorario\Yaphlo\Writer;
-use Sensorario\Yaphlo\ChannelVisibilityChecker;
+use Sensorario\Yaphlo\Objects\Message;
+use Sensorario\Yaphlo\Services\ChannelVisibilityChecker;
+use Sensorario\Yaphlo\Services\RowBuilder\RowBuilder;
 use Sensorario\Yaphlo\Listeners\Listener;
-use Sensorario\Yaphlo\WriterAdapter;
+use Sensorario\Yaphlo\Writers\Writer;
+use Sensorario\Yaphlo\Writers\WriterAdapter;
 use Sensorario\Yaphlo\Config\Config;
 use Sensorario\Yaphlo\Config\CustomConfig;
 
@@ -22,7 +23,9 @@ class ClassConfigTest extends PHPUnit\Framework\TestCase
         );
 
         $logger = new Logger(
-            new Message,
+            new Message(
+                new RowBuilder()
+            ),
             new Writer(
                 $config,
                 new WriterAdapter(

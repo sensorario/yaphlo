@@ -1,6 +1,6 @@
 <?php
 
-namespace Sensorario\Yaphlo;
+namespace Sensorario\Yaphlo\Exceptions;
 
 class WrongLevelException extends \Exception
 {

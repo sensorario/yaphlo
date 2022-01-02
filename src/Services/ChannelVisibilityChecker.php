@@ -1,12 +1,13 @@
 <?php
 
-namespace Sensorario\Yaphlo;
+namespace Sensorario\Yaphlo\Services;
 
-class ChannelVisibilityChecker
+use Sensorario\Yaphlo\Config;
+use Sensorario\Yaphlo\Objects\Message;
+
+class ChannelVisibilityChecker implements Base\Checker
 {
-    public function __construct(
-        private Config\Config $conf,
-    ) {}
+    private Config\Config $conf;
 
     public function mustChannelBeHidden(Message $message): bool
     {
@@ -24,5 +25,10 @@ class ChannelVisibilityChecker
         }
 
         return $keepMessageHidden;
+    }
+
+    public function setConfig( Config\Config $conf): void
+    {
+        $this->conf = $conf;
     }
 }

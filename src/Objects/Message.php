@@ -1,6 +1,9 @@
 <?php
 
-namespace Sensorario\Yaphlo;
+namespace Sensorario\Yaphlo\Objects;
+
+use Sensorario\Yaphlo\Services\RowBuilder\RowBuilder;
+use Sensorario\Yaphlo\Exceptions;
 
 class Message
 {
@@ -29,8 +32,9 @@ class Message
         self::LEVEL_FATAL,
     ];
 
-    public function __construct()
-    {
+    public function __construct(
+        private RowBuilder $builder,
+    ) {
         $this->datetime = new \DateTime();
     }
 
@@ -55,7 +59,7 @@ class Message
     public function setLevel(string $level): void
     {
         if (!in_array($level, self::$levelMap)) {
-            throw new WrongLevelException();
+            throw new Exceptions\WrongLevelException();
         }
 
         $this->level = $level;
@@ -71,25 +75,16 @@ class Message
         $rendered = [];
 
         $datetime = $this->datetime->format('[Y-m-d H:i:s]');
+
+        $this->builder->reset();
+        $this->builder->addLevel($this->level);
+        $this->builder->addChannel($this->channel);
+        $this->builder->addDateTime($this->datetime);
+
         foreach (explode("\n", $encoded) as $line) {
-            $items = [];
+            $this->builder->addLine($line);
 
-            $items[] = $datetime;
-
-            if ($this->level !== null) {
-                $items[] = '[' . $this->level . ']';
-            }
-
-            if (
-                $this->channel !== null
-                && $this->channel !== ''
-            ) {
-                $items[] = '[' . $this->channel . ']';
-            }
-
-            $items[] = $line;
-
-            $rendered[] = join(' ', $items);
+            $rendered[] = $this->builder->rendered();
         }
 
         return implode("\n", $rendered);
@@ -110,6 +105,10 @@ class Message
 
     public function isPrintableWithLevel(string $level): bool
     {
+        if ($this->level === null) {
+            throw new Exceptions\MissingLevelException();
+        }
+
         $map = $this->inverseMap();
         $levelNumber = $map[$level];
         $levelMe = $map[$this->level] ?? 0;

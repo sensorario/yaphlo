@@ -1,6 +1,10 @@
 <?php
 
-namespace Sensorario\Yaphlo;
+namespace Sensorario\Yaphlo\Writers;
+
+use Sensorario\Yaphlo\Objects\Message;
+use Sensorario\Yaphlo\Config;
+use Sensorario\Yaphlo\Services\ChannelVisibilityChecker;
 
 class Writer
 {
@@ -18,6 +22,7 @@ class Writer
             return;
         }
 
+        $this->checker->setConfig($this->conf);
         if ($this->checker->mustChannelBeHidden($message)) {
             return;
         }

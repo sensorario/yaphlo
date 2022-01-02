@@ -1,6 +1,6 @@
 <?php
 
-namespace Sensorario\Yaphlo;
+namespace Sensorario\Yaphlo\Services;
 
 class ChannelVisibilityCheckerTest extends \PHPUnit\Framework\TestCase
 {
@@ -15,7 +15,8 @@ class ChannelVisibilityCheckerTest extends \PHPUnit\Framework\TestCase
             ->getMock();
 
         $this->message = $this
-            ->getMockBuilder(\Sensorario\Yaphlo\Message::class)
+            ->getMockBuilder(\Sensorario\Yaphlo\Objects\Message::class)
+            ->disableOriginalConstructor()
             ->getMock();
     }
 
@@ -30,9 +31,9 @@ class ChannelVisibilityCheckerTest extends \PHPUnit\Framework\TestCase
             ->method('enabledChannels')
             ->willReturn(['first channel', 'second channel']);
 
-        $this->checker = new ChannelVisibilityChecker(
-            $this->conf
-        );
+        $this->checker = new ChannelVisibilityChecker();
+
+        $this->checker->setConfig($this->conf);
 
         $hide = $this->checker->mustChannelBeHidden($this->message);
 
@@ -50,9 +51,9 @@ class ChannelVisibilityCheckerTest extends \PHPUnit\Framework\TestCase
             ->method('enabledChannels')
             ->willReturn(['first channel', 'second channel']);
 
-        $this->checker = new ChannelVisibilityChecker(
-            $this->conf
-        );
+        $this->checker = new ChannelVisibilityChecker();
+
+        $this->checker->setConfig($this->conf);
 
         $hide = $this->checker->mustChannelBeHidden($this->message);
 

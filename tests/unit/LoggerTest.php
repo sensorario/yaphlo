@@ -1,6 +1,9 @@
 <?php
 
-namespace Sensorario\Yaphlo;
+namespace Sensorario\Yaphlo\Tests;
+
+use Sensorario\Yaphlo\Objects\Message;
+use Sensorario\Yaphlo\Logger;
 
 class LoggerTest extends \PHPUnit\Framework\TestCase
 {
@@ -11,11 +14,12 @@ class LoggerTest extends \PHPUnit\Framework\TestCase
     public function setUp(): void
     {
         $this->message = $this
-            ->getMockBuilder(\Sensorario\Yaphlo\Message::class)
+            ->getMockBuilder(\Sensorario\Yaphlo\Objects\Message::class)
+            ->disableOriginalConstructor()
             ->getMock();
 
         $this->writer = $this
-            ->getMockBuilder(\Sensorario\Yaphlo\Writer::class)
+            ->getMockBuilder(\Sensorario\Yaphlo\Writers\Writer::class)
             ->disableOriginalConstructor()
             ->getMock();
     }
