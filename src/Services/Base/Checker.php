@@ -2,7 +2,7 @@
 
 namespace Sensorario\Yaphlo\Services\Base;
 
-use Sensorario\Yaphlo\Message;
+use Sensorario\Yaphlo\Objects\Message;
 use Sensorario\Yaphlo\Config\Config;
 
 interface Checker

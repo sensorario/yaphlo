@@ -1,7 +1,7 @@
 <?php
 
 use Sensorario\Yaphlo\Logger;
-use Sensorario\Yaphlo\Message;
+use Sensorario\Yaphlo\Objects\Message;
 use Sensorario\Yaphlo\Services\ChannelVisibilityChecker;
 use Sensorario\Yaphlo\Services\RowBuilder\RowBuilder;
 use Sensorario\Yaphlo\Listeners\Listener;

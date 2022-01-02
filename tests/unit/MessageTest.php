@@ -1,8 +1,9 @@
 <?php
 
-namespace Sensorario\Yaphlo;
+namespace Sensorario\Yaphlo\Tests;
 
 use Sensorario\Yaphlo\Services\RowBuilder\RowBuilder;
+use Sensorario\Yaphlo\Objects\Message;
 
 class MessageTest extends \PHPUnit\Framework\TestCase
 {

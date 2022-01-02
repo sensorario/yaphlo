@@ -2,7 +2,7 @@
 
 namespace Sensorario\Yaphlo\Tests;
 
-use Sensorario\Yaphlo\Message;
+use Sensorario\Yaphlo\Objects\Message;
 use Sensorario\Yaphlo\Config\Config;
 use Sensorario\Yaphlo\Writers\FileWriterWrapper;
 use Sensorario\Yaphlo\Writers\Writer;
@@ -24,7 +24,7 @@ class WriterTest extends \PHPUnit\Framework\TestCase
             ->getMock();
 
         $this->message = $this
-            ->getMockBuilder(\Sensorario\Yaphlo\Message::class)
+            ->getMockBuilder(\Sensorario\Yaphlo\Objects\Message::class)
             ->disableOriginalConstructor()
             ->getMock();
 

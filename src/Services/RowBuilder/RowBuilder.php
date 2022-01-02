@@ -3,7 +3,7 @@
 namespace Sensorario\Yaphlo\Services\RowBuilder;
 
 use DateTime;
-use Sensorario\Yaphlo\Message;
+use Sensorario\Yaphlo\Objects\Message;
 
 class RowBuilder
 {

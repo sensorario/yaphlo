@@ -3,7 +3,7 @@
 namespace Sensorario\Yaphlo\Services;
 
 use Sensorario\Yaphlo\Config;
-use Sensorario\Yaphlo\Message;
+use Sensorario\Yaphlo\Objects\Message;
 
 class ChannelVisibilityChecker implements Base\Checker
 {

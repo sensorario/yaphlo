@@ -2,7 +2,7 @@
 
 namespace Sensorario\Yaphlo;
 
-use Sensorario\Yaphlo\Message;
+use Sensorario\Yaphlo\Objects\Message;
 
 class Logger implements LoggerWriter
 {

@@ -1,8 +1,9 @@
 <?php
 
-namespace Sensorario\Yaphlo;
+namespace Sensorario\Yaphlo\Objects;
 
 use Sensorario\Yaphlo\Services\RowBuilder\RowBuilder;
+use Sensorario\Yaphlo\Exceptions;
 
 class Message
 {
